@@ -77,7 +77,7 @@ while y == 1:
     else:
         y = 0
 while z == 1:
-    eDay = int(input("Enter the start DAY of the data: "))
+    eDay = int(input("Enter the end DAY of the data: "))
     days = range(1, 32)
     if (eDay not in days):
         print()

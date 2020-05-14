@@ -2,6 +2,7 @@ import pandas as pd
 from pandas_datareader import data
 import statistics
 import matplotlib.pyplot as plt
+import numpy as np
 
 print()
 ticker = input("Enter the name of the ticker symbol you want to work with: ")
@@ -31,7 +32,6 @@ def Daily_Returns(df):
     
     # In order to do this I sliced the Adj Close array from the first onwards to omit the
     # first close price (since there is no preceding, it doesn't give us a daily return).
-
     # Then I sliced it again omitting the very last element to create two equally sized arrays
     # to create the previous_close array
 
@@ -54,15 +54,16 @@ def Monthly_CVaR(ticker:str, confidence):
     CVaR = returns[returns.lt(VaR, axis=1)].mean()
     return CVaR[0]
 
-def Monthly_Volatility(ticker):
+def Monthly_Volatility():
     returns = (Daily_Returns(df)) 
-    return statistics.stdev(returns) / monthsDifference # Divide by difference in dates months to get Monthly_Vol 
+    return (statistics.stdev(returns) / monthsDifference) # Divide by difference in dates months to get Monthly_Vol 
 
 
 dr = Daily_Returns(df)
 mv = Monthly_VaR(ticker, confidence)
 mcv = Monthly_CVaR(ticker, confidence)
 mvo  = Monthly_Volatility
+
 print()
 print("Daily Returns : ")
 print(dr)
@@ -73,12 +74,14 @@ print()
 print("Monthly Conditional Variance : ")
 print(mcv) 
 print()
-print("Monthly Variance : ")
-print(mvo)
-print() 
+# doesnt display these for some reason??
+# print("Monthly Volatility : ")
+# print(mvo)
+# print() 
 
-graph = plt.plot(dr)
-print(graph)
+# c = np.array(dr)
+# graph = plt.plot(c)
+# print(graph)
 
 
     

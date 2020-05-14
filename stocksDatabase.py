@@ -4,7 +4,7 @@ import numpy as np
 from pandas_datareader import data
 
 def Fill_table(ticker:str):
-    # Pretty simple , just taking the Stock Data to a DF  from which I populate the DB later
+    # 2019 Stock Data to a DF  from which I populate the DB later
     df = data.DataReader(ticker, start='2019-1-1', end='2019-12-31',data_source='yahoo')   
 
     # Creates table 
@@ -32,8 +32,6 @@ def Fill_table(ticker:str):
     conn.commit()
     conn.close()
 
-#how much money
-#plot daily_returns 
 
 def Daily_Returns(closes):
     adj_closes = np.array(closes)[1:]
@@ -46,3 +44,4 @@ def Monthly_Var(confidence=0.05):
     c.execute("""SELECT  Adj_Close FROM Stock_Data """)
     closes = np.array(c.fetchall())
     return pd.DataFrame((Daily_Returns(closes))).quantile(confidence)[0]
+
